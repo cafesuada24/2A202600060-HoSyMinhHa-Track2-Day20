@@ -11,15 +11,13 @@
   "ram_gb": 15.3,
   "gpu": {
     "backends": {
-      "nvidia_cuda": true,
+      "nvidia_cuda": false,
       "amd_rocm": false,
       "apple_metal": false,
       "vulkan": false,
-      "cpu_only": false
+      "cpu_only": true
     },
-    "details": {
-      "nvidia": "NVIDIA GeForce RTX 3050 Laptop GPU, 4096 MiB"
-    }
+    "details": {}
   },
   "docker": {
     "docker": true,
@@ -33,7 +31,7 @@
       "BONUS-llama-cpp-optimization"
     ],
     "recommended_model": "Qwen2.5-1.5B-Instruct (Q4_K_M)",
-    "llama_cpp_backend": "CUDA",
-    "llama_cpp_cmake_flag": "-DGGML_CUDA=on"
+    "llama_cpp_backend": "CPU (AVX/NEON tuning)",
+    "llama_cpp_cmake_flag": ""
   }
 }
