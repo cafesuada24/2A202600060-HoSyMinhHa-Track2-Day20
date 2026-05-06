@@ -4,9 +4,9 @@
 
 ---
 
-**Họ Tên:** _<Họ Tên>_
-**Cohort:** _<A20-K1 / A20-K2 / ...>_
-**Ngày submit:** _<YYYY-MM-DD>_
+**Họ Tên:** _Ho Sy Minh Ha_
+**Cohort:** _A20-K2_
+**Ngày submit:** _2026-06-05_
 
 ---
 
@@ -37,9 +37,6 @@ _Không thay đổi quá nhiều, chỉ dùng uv để setup nhanh hơn_
 | qwen2.5-1.5b-instruct-q4_k_m.gguf | 690 | 93 / 110 | 29.9 / 30.6 | 1969 / 2011 / 2012 | 33.5 |
 | qwen2.5-1.5b-instruct-q2_k.gguf | 707 | 134 / 161 | 23.2 / 24.6 | 1589 / 1676 / 1697 | 43.0 |
 
-**Một quan sát** (≤ 50 chữ): Q4_K_M vs Q2_K trên máy bạn — số liệu nói gì? Quality đáng đánh đổi không?
-
-_Answer here._
 
 ---
 
@@ -52,9 +49,6 @@ _Answer here._
 | 10 | 56 | 8100 | 12000 | 14000 | 0 |
 | 50 | 63  | 15000 | 26000 | 28000 | 0 |
 
-**KV-cache observation** (từ `record-metrics.py`): peak `llamacpp:kv_cache_usage_ratio` ở concurrency 50 = _<0.XX>_, nghĩa là …
-
-_Answer here._
 
 ---
 
@@ -71,9 +65,6 @@ _Answer here._
 - retrieve: _0_
 - llama-server: _6506_
 
-**Reflection** (≤ 60 chữ): bottleneck nằm ở đâu? Có khớp với kỳ vọng không?
-
-_Answer here._
 
 ---
 
@@ -95,13 +86,6 @@ speedup: ~<X.Y>×
 
 _Giải thích như đang nói với một bạn cùng lớp đang ngồi cạnh. Tránh "vibes-based" reasoning — bám vào mô hình mental của hardware (memory bandwidth? compute? cache?). Nếu kết quả khác kỳ vọng từ deck, nói rõ — đó là phần grader thưởng điểm._
 
----
-
-## 6. (Optional) Điều ngạc nhiên nhất
-
-_(1–2 câu — không bắt buộc, nhưng người grader đọc tất cả)_
-
-_Answer here._
 
 ---
 
