@@ -14,18 +14,17 @@
 
 > Paste output của `python 00-setup/detect-hardware.py` vào đây, hoặc điền thủ công:
 
-- **OS:** _<macOS 14 / Windows 11 / Ubuntu 24.04 / ...>_
-- **CPU:** _<Apple M2 / Intel i7-12700H / AMD Ryzen 7 5800H / ...>_
-- **Cores:** _<physical / logical>_
-- **CPU extensions:** _<AVX2 / AVX-512 / NEON / —>_
-- **RAM:** _<GB>_
-- **Accelerator:** _<NVIDIA RTX 4060 8GB / Apple Metal / AMD ROCm / Vulkan / CPU only>_
-- **llama.cpp backend đã chọn:** _<CUDA / Metal / Vulkan / CPU>_
-- **Recommended model tier:** _<TinyLlama-1.1B / Qwen2.5-1.5B / Llama-3.2-3B / Qwen2.5-7B>_
+- **OS:** _Linux 6.17.0-23-generic (x86_64)_
+- **CPU:** _11th Gen Intel(R) Core(TM) i5-11300H @ 3.10GHz_
+- **Cores:** _8 physical · 8 logical cores_
+- **CPU extensions:** _AVX-512_
+- **RAM:** _15.3 GB_
+- **Accelerator:** _CPU only (no discrete accelerator)_
+- **llama.cpp backend đã chọn:** _CPU_
+- **Recommended model tier:** _Qwen2.5-1.5B-Instruct (Q4_K_M)_
 
-**Setup story** (≤ 80 chữ): những gì cần thay đổi để lab chạy được trên máy bạn (vd: dùng WSL2, install CUDA Toolkit, fall back sang Vulkan vì ROCm phiên bản kén, tắt antivirus để pip install nhanh hơn, v.v.):
-
-_Answer here._
+**Setup story**
+_Không thay đổi quá nhiều, chỉ dùng uv để setup nhanh hơn_
 
 ---
 
@@ -34,9 +33,9 @@ _Answer here._
 > Paste bảng từ `benchmarks/01-quickstart-results.md` xuống đây (auto-generated bởi `python 01-llama-cpp-quickstart/benchmark.py`).
 
 | Model | Load (ms) | TTFT P50/P95 (ms) | TPOT P50/P95 (ms) | E2E P50/P95/P99 (ms) | Decode rate (tok/s) |
-|---|--:|--:|--:|--:|--:|
-| (Q4_K_M) | | | | | |
-| (Q2_K)   | | | | | |
+|---|---:|---:|---:|---:|---:|
+| qwen2.5-1.5b-instruct-q4_k_m.gguf | 690 | 93 / 110 | 29.9 / 30.6 | 1969 / 2011 / 2012 | 33.5 |
+| qwen2.5-1.5b-instruct-q2_k.gguf | 707 | 134 / 161 | 23.2 / 24.6 | 1589 / 1676 / 1697 | 43.0 |
 
 **Một quan sát** (≤ 50 chữ): Q4_K_M vs Q2_K trên máy bạn — số liệu nói gì? Quality đáng đánh đổi không?
 
@@ -50,8 +49,8 @@ _Answer here._
 
 | Concurrency | Total RPS | TTFB P50 (ms) | E2E P95 (ms) | E2E P99 (ms) | Failures |
 |--:|--:|--:|--:|--:|--:|
-| 10 | | | | | |
-| 50 | | | | | |
+| 10 | 56 | 8100 | 12000 | 14000 | 0 |
+| 50 | 63  | 15000 | 26000 | 28000 | 0 |
 
 **KV-cache observation** (từ `record-metrics.py`): peak `llamacpp:kv_cache_usage_ratio` ở concurrency 50 = _<0.XX>_, nghĩa là …
 
@@ -61,16 +60,16 @@ _Answer here._
 
 ## 4. Track 03 — Milestone integration
 
-- **N16 (Cloud/IaC):** _<piece you connected — k3d cluster / GCP project / docker-compose / "stub: localhost only">_
-- **N17 (Data pipeline):** _<piece — Airflow DAG / batch job / "stub: in-memory dict">_
-- **N18 (Lakehouse):** _<piece — Delta Lake table / Iceberg / "stub: SQLite">_
-- **N19 (Vector + Feature Store):** _<piece — Qdrant index / Feast / "stub: TOY_DOCS">_
+- **N16 (Cloud/IaC):** _stub: localhost only_
+- **N17 (Data pipeline):** _"stub: in-memory dict"_
+- **N18 (Lakehouse):** _stub: SQLite_
+- **N19 (Vector + Feature Store):** _stub: TOY_DOCS_
 
 **Nơi tốn nhiều ms nhất** trong pipeline (đo bằng `time.perf_counter` trong `pipeline.py`):
 
-- embed: _<ms>_
-- retrieve: _<ms>_
-- llama-server: _<ms>_
+- embed: _0_
+- retrieve: _0_
+- llama-server: _6506_
 
 **Reflection** (≤ 60 chữ): bottleneck nằm ở đâu? Có khớp với kỳ vọng không?
 
@@ -108,16 +107,14 @@ _Answer here._
 
 ## 7. Self-graded checklist
 
-- [ ] `hardware.json` đã commit
-- [ ] `models/active.json` đã commit (hoặc paste path snapshot vào section 1)
-- [ ] `benchmarks/01-quickstart-results.md` đã commit
-- [ ] `benchmarks/02-server-results.md` (hoặc CSV từ `record-metrics.py`) đã commit
-- [ ] `benchmarks/bonus-*.md` đã commit (ít nhất 1 sweep)
-- [ ] Ít nhất 6 screenshots trong `submission/screenshots/` (xem `submission/screenshots/README.md`)
-- [ ] `make verify` exit 0 (chạy ngay trước khi push)
-- [ ] Repo trên GitHub ở chế độ **public**
-- [ ] Đã paste public repo URL vào VinUni LMS
+- [ x ] `hardware.json` đã commit
+- [ x ] `models/active.json` đã commit (hoặc paste path snapshot vào section 1)
+- [ x ] `benchmarks/01-quickstart-results.md` đã commit
+- [ x ] `benchmarks/02-server-results.md` (hoặc CSV từ `record-metrics.py`) đã commit
+- [ x ] `benchmarks/bonus-*.md` đã commit (ít nhất 1 sweep)
+- [ x ] Ít nhất 6 screenshots trong `submission/screenshots/` (xem `submission/screenshots/README.md`)
+- [ x ] `make verify` exit 0 (chạy ngay trước khi push)
+- [ x ] Repo trên GitHub ở chế độ **public**
+- [ x ] Đã paste public repo URL vào VinUni LMS
 
 ---
-
-**Quan trọng:** repo phải **public** đến khi điểm được công bố. Nếu private, grader không xem được → 0 điểm.
